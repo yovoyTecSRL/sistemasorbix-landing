@@ -1,0 +1,6 @@
+body {
+  background: #101010; /* Negro mate oscuro */
+  color: #fff;
+  /* Puedes agregar un gradient sutil si quieres más profundidad */
+  /* background: linear-gradient(180deg, #101010 80%, #181c24 100%); */
+}
