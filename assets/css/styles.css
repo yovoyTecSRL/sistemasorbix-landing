@@ -1,50 +1,9 @@
 body {
   background: #101010;
   color: #fff;
-  position: relative;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 10% 20%, #00e5ff33 0px, #101010 80px),
-    radial-gradient(circle at 80% 10%, #d4af3733 0px, #101010 100px),
-    radial-gradient(circle at 60% 80%, #1a237e55 0px, #101010 120px),
-    radial-gradient(circle at 30% 70%, #00e5ff44 0px, #101010 60px),
-    radial-gradient(circle at 70% 50%, #d4af3744 0px, #101010 90px),
-    linear-gradient(180deg, #101010 80%, #181c24 100%);
-  opacity: 1;
-  pointer-events: none;
-}
-
-/* Opcional: burbujas animadas con pseudo-elementos y keyframes */
-.planet-bubble {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.7;
-  filter: blur(1px);
-  z-index: 0;
-}
-.planet-bubble.cyan {
-  background: radial-gradient(circle, #00e5ff 60%, #101010 100%);
-}
-.planet-bubble.gold {
-  background: radial-gradient(circle, #d4af37 60%, #101010 100%);
-}
-.planet-bubble.blue {
-  background: radial-gradient(circle, #1a237e 60%, #101010 100%);
-}
-
-@media (max-width: 600px) {
-  body::before {
-    background:
-      radial-gradient(circle at 20% 30%, #00e5ff33 0px, #101010 50px),
-      radial-gradient(circle at 70% 20%, #d4af3733 0px, #101010 60px),
-      linear-gradient(180deg, #101010 80%, #181c24 100%);
+  body {
+    background: #101010;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
-}
