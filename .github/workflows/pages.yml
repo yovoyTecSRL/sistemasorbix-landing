@@ -1,0 +1,138 @@
+name: 🚀 Deploy Orbix to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Lint and Test Job
+  lint-and-test:
+    runs-on: ubuntu-latest
+    name: 🔍 Lint & Test
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+      if: hashFiles('package.json') != ''
+      
+    - name: Install dependencies
+      run: npm ci
+      if: hashFiles('package.json') != ''
+      
+    - name: Run ESLint
+      run: npm run lint
+      if: hashFiles('package.json') != ''
+      continue-on-error: true
+      
+    - name: Run Tests
+      run: npm test
+      if: hashFiles('package.json') != ''
+      continue-on-error: true
+      
+    - name: HTML Validation
+      uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+      with:
+        root: .
+        css: true
+        blacklist: node_modules
+
+  # Build Job (if package.json exists)
+  build:
+    runs-on: ubuntu-latest
+    name: 🔨 Build
+    needs: lint-and-test
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Detect package.json
+      id: detect-package
+      run: |
+        if [ -f "package.json" ]; then
+          echo "has-package=true" >> $GITHUB_OUTPUT
+        else
+          echo "has-package=false" >> $GITHUB_OUTPUT
+        fi
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+      if: steps.detect-package.outputs.has-package == 'true'
+      
+    - name: Install dependencies
+      run: npm ci
+      if: steps.detect-package.outputs.has-package == 'true'
+      
+    - name: Build project
+      run: npm run build
+      if: steps.detect-package.outputs.has-package == 'true'
+      
+    - name: Upload build artifacts
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ${{ steps.detect-package.outputs.has-package == 'true' && 'dist' || '.' }}
+
+  # Deploy Job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    name: 🌐 Deploy to Pages
+    needs: build
+    
+    steps:
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+      
+    - name: 🎉 Deployment Success
+      run: |
+        echo "🚀 Orbix AI Systems deployed successfully!"
+        echo "🌐 Site URL: ${{ steps.deployment.outputs.page_url }}"
+        echo "📅 Deployed at: $(date)"
+
+  # Notify Job (optional - sends deployment status)
+  notify:
+    runs-on: ubuntu-latest
+    name: 📢 Notify
+    needs: [deploy]
+    if: always()
+    
+    steps:
+    - name: Notify Success
+      if: needs.deploy.result == 'success'
+      run: |
+        echo "✅ Orbix deployment successful!"
+        echo "Domain: sistemasorbix.com"
+        echo "Status: Live and ready!"
+        
+    - name: Notify Failure
+      if: needs.deploy.result == 'failure'
+      run: |
+        echo "❌ Orbix deployment failed!"
+        echo "Check logs for details."

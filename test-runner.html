@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Suite - Orbix Cyberpunk Effects</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0e1a;
+            color: #00e5ff;
+            padding: 20px;
+            margin: 0;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid #00e5ff;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #d4af37;
+            text-shadow: 0 0 10px #d4af37;
+        }
+        .console-output {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+        }
+        .run-button {
+            background: linear-gradient(45deg, #00e5ff, #d4af37);
+            border: none;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .run-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        }
+        .run-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="header">
+            <h1>🚀 Orbix AI Systems</h1>
+            <h2>Test Suite - Cyberpunk Effects</h2>
+            <p>Validación completa del sitio web</p>
+        </div>
+        
+        <button id="runTests" class="run-button">▶️ Ejecutar Todas las Pruebas</button>
+        
+        <div id="console" class="console-output">
+            Presiona el botón para ejecutar las pruebas...
+        </div>
+    </div>
+
+    <script>
+        // Redirigir console.log al div
+        const consoleDiv = document.getElementById('console');
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function(...args) {
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            consoleDiv.textContent += message + '\n';
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            originalLog.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            consoleDiv.textContent += '❌ ERROR: ' + message + '\n';
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            originalError.apply(console, args);
+        };
+
+        // Cargar y ejecutar tests
+        document.getElementById('runTests').addEventListener('click', async function() {
+            const button = this;
+            button.disabled = true;
+            button.textContent = '⏳ Ejecutando tests...';
+            
+            // Limpiar console
+            consoleDiv.textContent = '';
+            
+            try {
+                // Cargar el script de tests
+                const script = document.createElement('script');
+                script.src = '/tests/test-cyberpunk.js';
+                script.onerror = () => {
+                    console.error('No se pudo cargar el archivo de tests');
+                    button.disabled = false;
+                    button.textContent = '▶️ Ejecutar Todas las Pruebas';
+                };
+                document.head.appendChild(script);
+                
+            } catch (error) {
+                console.error('Error ejecutando tests:', error);
+            }
+            
+            // Reactivar botón después de un tiempo
+            setTimeout(() => {
+                button.disabled = false;
+                button.textContent = '🔄 Ejecutar Nuevamente';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

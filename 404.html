@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página no encontrada - Orbix AI Systems</title>
+    <meta name="description" content="La página que buscas no existe. Regresa al inicio de Orbix AI Systems o explora nuestros productos de IA.">
+    <link rel="canonical" href="https://sistemasorbix.com/404.html">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--space-lg);
+        }
+        
+        .error-content {
+            max-width: 600px;
+        }
+        
+        .error-code {
+            font-size: clamp(6rem, 15vw, 12rem);
+            font-family: var(--font-heading);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-neo-cyan), var(--color-golden));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: var(--space-md);
+        }
+        
+        .error-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-md);
+        }
+        
+        .error-description {
+            font-size: 1.2rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .error-suggestions {
+            list-style: none;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .error-suggestions li {
+            padding: var(--space-xs) 0;
+            color: var(--color-text-muted);
+        }
+        
+        .error-suggestions a {
+            color: var(--color-neo-cyan);
+            text-decoration: none;
+            transition: color var(--transition-normal);
+        }
+        
+        .error-suggestions a:hover {
+            color: var(--color-golden);
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <div class="error-code">404</div>
+            <h1 class="error-title">Página no encontrada</h1>
+            <p class="error-description">
+                La página que buscas no existe o ha sido movida. 
+                Pero no te preocupes, Orbix tiene muchas otras cosas interesantes para ti.
+            </p>
+            
+            <ul class="error-suggestions">
+                <li>🏠 <a href="/">Volver al inicio</a></li>
+                <li>🤖 <a href="/aenki.html">Conocer AeNKI</a></li>
+                <li>🛡️ <a href="/sentinel.html">Explorar Sentinel</a></li>
+                <li>📚 <a href="/docs/">Ver documentación</a></li>
+                <li>💬 <a href="/contacto.html">Contactar soporte</a></li>
+            </ul>
+            
+            <div class="hero-cta">
+                <a href="/" class="btn btn-primary">Volver al Inicio</a>
+                <a href="/contacto.html" class="btn btn-secondary">Contactar Soporte</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+    <script>
+        // Optional: Track 404 errors for analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: '404 - Page Not Found',
+                page_location: window.location.href,
+                custom_map: {
+                    'custom_parameter_1': 'error_page'
+                }
+            });
+        }
+    </script>
+</body>
+</html>

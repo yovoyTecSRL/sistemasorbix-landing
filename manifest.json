@@ -1,0 +1,132 @@
+{
+  "name": "Orbix AI Systems",
+  "short_name": "Orbix",
+  "description": "Framework de inteligencia artificial aplicada que transforma organizaciones en empresas con cerebro digital",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00e5ff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "es-ES",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/assets/img/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/img/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "AeNKI Neural Core",
+      "short_name": "AeNKI",
+      "description": "Núcleo neural con memoria persistente",
+      "url": "/aenki.html",
+      "icons": [
+        {
+          "src": "/assets/img/aenki-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Orbix Sentinel",
+      "short_name": "Sentinel",
+      "description": "Ciberseguridad en tiempo real",
+      "url": "/sentinel.html",
+      "icons": [
+        {
+          "src": "/assets/img/sentinel-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Tutorium Academy",
+      "short_name": "Tutorium",
+      "description": "Educación inteligente con IA",
+      "url": "/tutorium.html",
+      "icons": [
+        {
+          "src": "/assets/img/tutorium-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Documentación",
+      "short_name": "Docs",
+      "description": "Guías y API reference",
+      "url": "/docs/",
+      "icons": [
+        {
+          "src": "/assets/img/docs-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/img/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Orbix AI Systems - Desktop"
+    },
+    {
+      "src": "/assets/img/screenshot-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Orbix AI Systems - Mobile"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
