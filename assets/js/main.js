@@ -127,7 +127,12 @@ class ParticlesController {
   
   createCanvas() {
     const container = document.getElementById('particles-js');
-    if (!container) return;
+    if (!container) {
+      // particles-js container not found, skip this particle system
+      // (Hero has its own particle system)
+      console.log('ℹ️ particles-js container not found, using hero-specific particles');
+      return;
+    }
     
     this.canvas = document.createElement('canvas');
     this.ctx = this.canvas.getContext('2d');
@@ -145,6 +150,8 @@ class ParticlesController {
   }
   
   setupParticles() {
+    if (!this.canvas) return;
+    
     const particleCount = Math.min(window.innerWidth / 10, 80);
     
     for (let i = 0; i < particleCount; i++) {
