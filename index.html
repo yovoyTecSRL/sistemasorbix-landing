@@ -1,72 +1,503 @@
-<!-- Preload del fondo -->
-<link rel="preload" as="image" href="/assets/bg-space-1600.webp">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbix AI Systems - Soluciones de Inteligencia Artificial Avanzada</title>
+    <meta name="description" content="Orbix AI Systems - Desarrollamos soluciones de IA avanzadas: AeNKI Neural Core, Orbix Sentinel Security, Tutorium Learning AI y Eternity.ai. Tecnología cyberpunk del futuro, disponible hoy.">
+    <link rel="canonical" href="https://sistemasorbix.com/">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Preload del fondo -->
+    <link rel="preload" as="image" href="/assets/bg-space-1600.webp">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/cyber-effects.css">
+    
+    <!-- Hero Enhancement Styles -->
+    <style>
+        /* ===== Hero Background & Particle Variables ===== */
+        :root {
+            /* Hero background settings */
+            --hero-bg-img: url("/assets/bg-space-1600.webp");
+            --hero-bg-tint: rgba(0,0,0,.3);           /* Dark overlay for content readability */
+            --hero-overlay-brightness: rgba(255,255,255,.08); /* Bright overlay effect */
+            
+            /* Particle system configuration */
+            --particle-count: 50;                      /* Number of particles */
+            --particle-speed: 0.5;                     /* Movement speed multiplier */
+            --particle-size-min: 1;                    /* Minimum particle size */
+            --particle-size-max: 3;                    /* Maximum particle size */
+            --particle-color-primary: #00e5ff;         /* Cyan particles */
+            --particle-color-secondary: #ff6b6b;       /* Pink/red particles */
+            --particle-color-tertiary: #4ecdc4;        /* Teal particles */
+            --particle-twinkle-speed: 2;               /* Twinkle animation speed */
+        }
 
-<!-- Overrides: fondo global + holo-grid/circuit off por variables -->
-<style>
-  /* ===== Variables de fondo ===== */
-  :root{
-    /* Usa la imagen. Cambia a 'none' si quieres negro satinado */
-    --bg-img: url("/assets/bg-space-1600.webp");
-    --bg-tint: rgba(0,0,0,.45);       /* oscurece levemente para legibilidad */
-    --holo-grid-alpha: 0;             /* 0 = sin cuadritos, puedes subirlo a 0.03 si los quieres MUY sutiles */
-    --circuit-alpha: 0;               /* 0 = sin líneas cyan del circuit-bg; súbelo a 0.06 si lo quieres apenas */
-  }
+        /* Hero Section Enhanced Background */
+        .hero {
+            position: relative;
+            background: #000;                           /* Fallback */
+            background-image: var(--hero-bg-img);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden;                           /* Contain particles */
+        }
 
-  html, body { height: 100%; }
-  body{
-    margin: 0;
-    background: #000;                              /* fallback */
-    background-image: var(--bg-img);
-    background-size: cover;
-    background-position: center top;
-    background-attachment: fixed;                  /* si ves jitter en móvil, usa 'scroll' */
-    color: #e6f0ff;
-  }
+        /* Hero dark overlay for content readability */
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, var(--hero-bg-tint), var(--hero-bg-tint));
+            z-index: 1;
+            pointer-events: none;
+        }
 
-  /* Overlay para contraste sobre la imagen */
-  body::before{
-    content: "";
-    position: fixed; inset: 0; pointer-events: none;
-    background: linear-gradient(0deg, var(--bg-tint), var(--bg-tint));
-    z-index: -1;
-  }
+        /* Hero bright overlay effect (luminous/transparent PNG simulation) */
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(1200px 800px at 50% -10%, var(--hero-overlay-brightness), transparent 60%),
+                conic-gradient(from 90deg at 50% 50%, rgba(255,255,255,.02), transparent 30%, rgba(255,255,255,.02), transparent 60%);
+            z-index: 2;
+            pointer-events: none;
+            animation: brightnessGlow 4s ease-in-out infinite alternate;
+        }
 
-  /* Opción: negro "mate satinado" con brillos sutiles (se suma encima).
-     Si NO quieres el satinado, baja la opacidad a 0 o comenta este bloque. */
-  body::after{
-    content: "";
-    position: fixed; inset: 0; pointer-events: none; z-index: -1;
-    /* halo suave superior y micro texturita */
-    background:
-      radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.06), transparent 60%),
-      conic-gradient(from 90deg at 50% 50%, rgba(255,255,255,.02), rgba(0,0,0,0) 30%, rgba(255,255,255,.02), rgba(0,0,0,0) 60%);
-    opacity: .08; /* ajusta 0–.15 */
-  }
+        @keyframes brightnessGlow {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
 
-  /* Neutraliza fondos de secciones que puedan tapar el fondo global */
-  .hero, .header, .masthead {
-    background-image: none !important;
-    background-color: transparent !important;
-  }
+        /* Hero Particles Canvas */
+        #hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
 
-  /* Holographic Grid: mantenemos el elemento y su animación, pero SIN las líneas cyan */
-  .holo-grid {
-    background-image:
-      linear-gradient(rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px);
-    /* resto de estilos de tu .holo-grid permanecen desde cyber-effects.css */
-  }
+        /* Hero content above all effects */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
 
-  /* Circuit Board Pattern: mantenemos el efecto, pero sin color (alpha controlado) */
-  .circuit-bg {
-    background-image:
-      radial-gradient(circle at 2px 2px, rgba(0,229,255,var(--circuit-alpha)) 1px, transparent 0),
-      linear-gradient(90deg, rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%),
-      linear-gradient(rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%);
-  }
+        /* Ensure other sections don't inherit hero background */
+        .section:not(.hero) {
+            background: var(--color-bg-dark);
+            position: relative;
+            z-index: 100;
+        }
 
-  /* Accesibilidad y mobile suavizado */
-  @media (max-width: 768px){
-    body{ background-attachment: scroll; }
-  }
-</style>
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            .hero {
+                background-attachment: scroll;
+            }
+            :root {
+                --particle-count: 30;                  /* Fewer particles on mobile */
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .hero::after {
+                animation: none;
+            }
+            :root {
+                --particle-count: 0;                   /* Disable particles for reduced motion */
+                --particle-speed: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <a href="/">
+                    <span class="brand-text">Orbix AI</span>
+                    <span class="brand-glow"></span>
+                </a>
+            </div>
+            
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="navbar-nav">
+                <li><a href="/aenki.html">AeNKI</a></li>
+                <li><a href="/sentinel.html">Sentinel</a></li>
+                <li><a href="/tutorium.html">Tutorium</a></li>
+                <li><a href="/eternity.html">Eternity.ai</a></li>
+                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/docs/">Docs</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contacto.html" class="btn btn-primary">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Enhanced Background and Particles -->
+    <section class="hero">
+        <!-- Particle Canvas for Hero Only -->
+        <canvas id="hero-particles"></canvas>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Orbix AI Systems</h1>
+            <p class="hero-subtitle">Soluciones de Inteligencia Artificial Avanzada</p>
+            <p class="hero-description">
+                Desarrollamos tecnología cyberpunk del futuro, disponible hoy. 
+                Desde núcleos neurales hasta sistemas de seguridad inteligente, 
+                transformamos la realidad con IA de vanguardia.
+            </p>
+            <div class="hero-cta">
+                <a href="/contacto.html" class="btn btn-primary">Comenzar Ahora</a>
+                <a href="/docs/" class="btn btn-secondary">Ver Documentación</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Nuestros Productos de IA</h2>
+                <p class="section-subtitle">Tecnología cyberpunk diseñada para el mundo real</p>
+            </div>
+            
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3 class="card-title">AeNKI Neural Core</h3>
+                    <p>Núcleo neural avanzado con memoria persistente, APIs abiertas y voz natural que aprende y evoluciona.</p>
+                    <a href="/aenki.html" class="btn btn-outline">Explorar AeNKI</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3 class="card-title">Orbix Sentinel</h3>
+                    <p>Ciberseguridad de próxima generación con IA predictiva y respuesta automática a amenazas.</p>
+                    <a href="/sentinel.html" class="btn btn-outline">Ver Sentinel</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🎓</div>
+                    <h3 class="card-title">Tutorium Learning AI</h3>
+                    <p>Plataforma de aprendizaje adaptativo que personaliza la educación usando inteligencia artificial.</p>
+                    <a href="/tutorium.html" class="btn btn-outline">Descubrir Tutorium</a>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">♾️</div>
+                    <h3 class="card-title">Eternity.ai</h3>
+                    <p>Preservación digital avanzada y continuidad de consciencia mediante tecnología cuántica-neural.</p>
+                    <a href="/eternity.html" class="btn btn-outline">Explorar Eternity</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">¿Por qué elegir Orbix AI?</h2>
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Tecnología de Vanguardia</h3>
+                    <p>Algoritmos de IA propietarios desarrollados con los últimos avances en machine learning y redes neurales.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Seguridad Cyberpunk</h3>
+                    <p>Protección de datos de nivel militar con encriptación cuántica y sistemas de defensa adaptativos.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Escalabilidad Infinita</h3>
+                    <p>Arquitectura cloud-native que crece con tu negocio, desde startups hasta empresas globales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section section-cta">
+        <div class="section-container">
+            <div class="cta-content">
+                <h2>¿Listo para el futuro?</h2>
+                <p>Únete a las empresas que ya están transformando su industria con IA de Orbix.</p>
+                <div class="cta-buttons">
+                    <a href="/contacto.html" class="btn btn-primary btn-large">Solicitar Demo</a>
+                    <a href="/pricing.html" class="btn btn-secondary btn-large">Ver Pricing</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Orbix AI Systems</h4>
+                    <p>Desarrollamos el futuro de la inteligencia artificial con tecnología cyberpunk avanzada.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="GitHub">🔧</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Productos</h4>
+                    <a href="/aenki.html">AeNKI</a>
+                    <a href="/sentinel.html">Orbix Sentinel</a>
+                    <a href="/tutorium.html">Tutorium</a>
+                    <a href="/eternity.html">Eternity.ai</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <a href="/empresa.html">Sobre Nosotros</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/docs/">Documentación</a>
+                    <a href="/contacto.html">Contacto</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <a href="/docs/api/">API Docs</a>
+                    <a href="/docs/guide/">Guías</a>
+                    <a href="/pricing.html">Pricing</a>
+                    <a href="/docs/support/">Soporte</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Orbix AI Systems. Todos los derechos reservados.</p>
+                <p><span class="footer-badge">Powered by Orbix AI</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/cyber-effects.js"></script>
+    
+    <!-- Hero Particle System -->
+    <script>
+        // Hero-specific particle system
+        class HeroParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById('hero-particles');
+                if (!this.canvas) return;
+                
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.animationId = null;
+                
+                // Get configuration from CSS variables
+                this.config = this.getConfig();
+                
+                this.init();
+            }
+            
+            getConfig() {
+                const root = document.documentElement;
+                const styles = getComputedStyle(root);
+                
+                return {
+                    count: parseInt(styles.getPropertyValue('--particle-count')) || 50,
+                    speed: parseFloat(styles.getPropertyValue('--particle-speed')) || 0.5,
+                    sizeMin: parseInt(styles.getPropertyValue('--particle-size-min')) || 1,
+                    sizeMax: parseInt(styles.getPropertyValue('--particle-size-max')) || 3,
+                    colors: [
+                        styles.getPropertyValue('--particle-color-primary').trim() || '#00e5ff',
+                        styles.getPropertyValue('--particle-color-secondary').trim() || '#ff6b6b',
+                        styles.getPropertyValue('--particle-color-tertiary').trim() || '#4ecdc4'
+                    ],
+                    twinkleSpeed: parseFloat(styles.getPropertyValue('--particle-twinkle-speed')) || 2
+                };
+            }
+            
+            init() {
+                this.setupCanvas();
+                
+                // Wait for canvas to be properly sized before creating particles
+                setTimeout(() => {
+                    if (this.canvas.width > 0 && this.canvas.height > 0) {
+                        this.createParticles();
+                        this.animate();
+                    }
+                }, 100);
+                
+                // Resize handler
+                window.addEventListener('resize', () => {
+                    this.setupCanvas();
+                    this.createParticles(); // Recreate particles for new size
+                });
+            }
+            
+            setupCanvas() {
+                if (!this.canvas || !this.canvas.parentElement) return;
+                
+                const rect = this.canvas.parentElement.getBoundingClientRect();
+                // Ensure we have valid dimensions
+                const width = rect.width || window.innerWidth;
+                const height = rect.height || window.innerHeight;
+                
+                this.canvas.width = width;
+                this.canvas.height = height;
+                this.canvas.style.width = width + 'px';
+                this.canvas.style.height = height + 'px';
+            }
+            
+            createParticles() {
+                if (!this.canvas || this.canvas.width <= 0 || this.canvas.height <= 0) {
+                    return; // Don't create particles if canvas isn't ready
+                }
+                
+                this.particles = [];
+                
+                for (let i = 0; i < this.config.count; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * this.config.speed,
+                        vy: (Math.random() - 0.5) * this.config.speed,
+                        size: Math.random() * (this.config.sizeMax - this.config.sizeMin) + this.config.sizeMin,
+                        color: this.config.colors[Math.floor(Math.random() * this.config.colors.length)],
+                        opacity: Math.random() * 0.8 + 0.2,
+                        twinkle: Math.random() * Math.PI * 2,
+                        twinkleSpeed: Math.random() * this.config.twinkleSpeed + 0.5,
+                        type: Math.random() < 0.7 ? 'star' : 'bubble' // 70% stars, 30% bubbles
+                    });
+                }
+            }
+            
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.particles.forEach(particle => {
+                    // Update position
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    // Wrap around edges
+                    if (particle.x < 0) particle.x = this.canvas.width;
+                    if (particle.x > this.canvas.width) particle.x = 0;
+                    if (particle.y < 0) particle.y = this.canvas.height;
+                    if (particle.y > this.canvas.height) particle.y = 0;
+                    
+                    // Update twinkle
+                    particle.twinkle += particle.twinkleSpeed * 0.02;
+                    const twinkleOpacity = (Math.sin(particle.twinkle) + 1) * 0.5;
+                    
+                    // Draw particle
+                    this.ctx.save();
+                    this.ctx.globalAlpha = particle.opacity * twinkleOpacity;
+                    
+                    if (particle.type === 'star') {
+                        this.drawStar(particle);
+                    } else {
+                        this.drawBubble(particle);
+                    }
+                    
+                    this.ctx.restore();
+                });
+                
+                this.animationId = requestAnimationFrame(() => this.animate());
+            }
+            
+            drawStar(particle) {
+                const { x, y, size, color } = particle;
+                
+                this.ctx.fillStyle = color;
+                this.ctx.shadowColor = color;
+                this.ctx.shadowBlur = size * 2;
+                
+                // Draw star shape
+                this.ctx.beginPath();
+                for (let i = 0; i < 5; i++) {
+                    const angle = (i * Math.PI * 2) / 5 - Math.PI / 2;
+                    const x1 = x + Math.cos(angle) * size;
+                    const y1 = y + Math.sin(angle) * size;
+                    
+                    if (i === 0) {
+                        this.ctx.moveTo(x1, y1);
+                    } else {
+                        this.ctx.lineTo(x1, y1);
+                    }
+                    
+                    const innerAngle = angle + Math.PI / 5;
+                    const x2 = x + Math.cos(innerAngle) * (size * 0.4);
+                    const y2 = y + Math.sin(innerAngle) * (size * 0.4);
+                    this.ctx.lineTo(x2, y2);
+                }
+                this.ctx.closePath();
+                this.ctx.fill();
+            }
+            
+            drawBubble(particle) {
+                const { x, y, size, color } = particle;
+                
+                // Outer glow
+                this.ctx.fillStyle = color;
+                this.ctx.shadowColor = color;
+                this.ctx.shadowBlur = size * 3;
+                
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, size, 0, Math.PI * 2);
+                this.ctx.fill();
+                
+                // Inner bright spot
+                this.ctx.shadowBlur = 0;
+                this.ctx.fillStyle = '#ffffff';
+                this.ctx.globalAlpha *= 0.6;
+                this.ctx.beginPath();
+                this.ctx.arc(x - size * 0.3, y - size * 0.3, size * 0.3, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+            
+            destroy() {
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+            }
+        }
+        
+        // Initialize hero particles when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for reduced motion preference
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            if (!prefersReducedMotion) {
+                new HeroParticleSystem();
+            }
+        });
+    </script>
+</body>
+</html>

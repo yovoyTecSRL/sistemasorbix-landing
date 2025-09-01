@@ -1,0 +1,72 @@
+<!-- Preload del fondo -->
+<link rel="preload" as="image" href="/assets/bg-space-1600.webp">
+
+<!-- Overrides: fondo global + holo-grid/circuit off por variables -->
+<style>
+  /* ===== Variables de fondo ===== */
+  :root{
+    /* Usa la imagen. Cambia a 'none' si quieres negro satinado */
+    --bg-img: url("/assets/bg-space-1600.webp");
+    --bg-tint: rgba(0,0,0,.45);       /* oscurece levemente para legibilidad */
+    --holo-grid-alpha: 0;             /* 0 = sin cuadritos, puedes subirlo a 0.03 si los quieres MUY sutiles */
+    --circuit-alpha: 0;               /* 0 = sin líneas cyan del circuit-bg; súbelo a 0.06 si lo quieres apenas */
+  }
+
+  html, body { height: 100%; }
+  body{
+    margin: 0;
+    background: #000;                              /* fallback */
+    background-image: var(--bg-img);
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;                  /* si ves jitter en móvil, usa 'scroll' */
+    color: #e6f0ff;
+  }
+
+  /* Overlay para contraste sobre la imagen */
+  body::before{
+    content: "";
+    position: fixed; inset: 0; pointer-events: none;
+    background: linear-gradient(0deg, var(--bg-tint), var(--bg-tint));
+    z-index: -1;
+  }
+
+  /* Opción: negro "mate satinado" con brillos sutiles (se suma encima).
+     Si NO quieres el satinado, baja la opacidad a 0 o comenta este bloque. */
+  body::after{
+    content: "";
+    position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    /* halo suave superior y micro texturita */
+    background:
+      radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.06), transparent 60%),
+      conic-gradient(from 90deg at 50% 50%, rgba(255,255,255,.02), rgba(0,0,0,0) 30%, rgba(255,255,255,.02), rgba(0,0,0,0) 60%);
+    opacity: .08; /* ajusta 0–.15 */
+  }
+
+  /* Neutraliza fondos de secciones que puedan tapar el fondo global */
+  .hero, .header, .masthead {
+    background-image: none !important;
+    background-color: transparent !important;
+  }
+
+  /* Holographic Grid: mantenemos el elemento y su animación, pero SIN las líneas cyan */
+  .holo-grid {
+    background-image:
+      linear-gradient(rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px);
+    /* resto de estilos de tu .holo-grid permanecen desde cyber-effects.css */
+  }
+
+  /* Circuit Board Pattern: mantenemos el efecto, pero sin color (alpha controlado) */
+  .circuit-bg {
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(0,229,255,var(--circuit-alpha)) 1px, transparent 0),
+      linear-gradient(90deg, rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%),
+      linear-gradient(rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%);
+  }
+
+  /* Accesibilidad y mobile suavizado */
+  @media (max-width: 768px){
+    body{ background-attachment: scroll; }
+  }
+</style>
