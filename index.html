@@ -1,72 +1,263 @@
-<!-- Preload del fondo -->
-<link rel="preload" as="image" href="/assets/bg-space-1600.webp">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbix AI Systems - Inteligencia Artificial Aplicada</title>
+    <meta name="description" content="Orbix AI Systems - Framework de IA conversacional, automatización empresarial y ciberseguridad. AeNKI, Sentinel, Tutorium y Eternity.ai">
+    <link rel="canonical" href="https://sistemasorbix.com/">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Preload del fondo -->
+    <link rel="preload" as="image" href="/assets/bg-space-1600.webp">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/cyber-effects.css">
+    
+    <!-- Overrides: fondo global + holo-grid/circuit off por variables -->
+    <style>
+      /* ===== Variables de fondo ===== */
+      :root{
+        /* Usa la imagen. Cambia a 'none' si quieres negro satinado */
+        --bg-img: url("/assets/bg-space-1600.webp");
+        --bg-tint: rgba(0,0,0,.45);       /* oscurece levemente para legibilidad */
+        --holo-grid-alpha: 0;             /* 0 = sin cuadritos, puedes subirlo a 0.03 si los quieres MUY sutiles */
+        --circuit-alpha: 0;               /* 0 = sin líneas cyan del circuit-bg; súbelo a 0.06 si lo quieres apenas */
+      }
 
-<!-- Overrides: fondo global + holo-grid/circuit off por variables -->
-<style>
-  /* ===== Variables de fondo ===== */
-  :root{
-    /* Usa la imagen. Cambia a 'none' si quieres negro satinado */
-    --bg-img: url("/assets/bg-space-1600.webp");
-    --bg-tint: rgba(0,0,0,.45);       /* oscurece levemente para legibilidad */
-    --holo-grid-alpha: 0;             /* 0 = sin cuadritos, puedes subirlo a 0.03 si los quieres MUY sutiles */
-    --circuit-alpha: 0;               /* 0 = sin líneas cyan del circuit-bg; súbelo a 0.06 si lo quieres apenas */
-  }
+      html, body { height: 100%; }
+      body{
+        margin: 0;
+        background: #000;                              /* fallback */
+        background-image: var(--bg-img);
+        background-size: cover;
+        background-position: center top;
+        background-attachment: fixed;                  /* si ves jitter en móvil, usa 'scroll' */
+        color: #e6f0ff;
+      }
 
-  html, body { height: 100%; }
-  body{
-    margin: 0;
-    background: #000;                              /* fallback */
-    background-image: var(--bg-img);
-    background-size: cover;
-    background-position: center top;
-    background-attachment: fixed;                  /* si ves jitter en móvil, usa 'scroll' */
-    color: #e6f0ff;
-  }
+      /* Overlay para contraste sobre la imagen */
+      body::before{
+        content: "";
+        position: fixed; inset: 0; pointer-events: none;
+        background: linear-gradient(0deg, var(--bg-tint), var(--bg-tint));
+        z-index: -1;
+      }
 
-  /* Overlay para contraste sobre la imagen */
-  body::before{
-    content: "";
-    position: fixed; inset: 0; pointer-events: none;
-    background: linear-gradient(0deg, var(--bg-tint), var(--bg-tint));
-    z-index: -1;
-  }
+      /* Opción: negro "mate satinado" con brillos sutiles (se suma encima).
+         Si NO quieres el satinado, baja la opacidad a 0 o comenta este bloque. */
+      body::after{
+        content: "";
+        position: fixed; inset: 0; pointer-events: none; z-index: -1;
+        /* halo suave superior y micro texturita */
+        background:
+          radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.06), transparent 60%),
+          conic-gradient(from 90deg at 50% 50%, rgba(255,255,255,.02), rgba(0,0,0,0) 30%, rgba(255,255,255,.02), rgba(0,0,0,0) 60%);
+        opacity: .08; /* ajusta 0–.15 */
+      }
 
-  /* Opción: negro "mate satinado" con brillos sutiles (se suma encima).
-     Si NO quieres el satinado, baja la opacidad a 0 o comenta este bloque. */
-  body::after{
-    content: "";
-    position: fixed; inset: 0; pointer-events: none; z-index: -1;
-    /* halo suave superior y micro texturita */
-    background:
-      radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.06), transparent 60%),
-      conic-gradient(from 90deg at 50% 50%, rgba(255,255,255,.02), rgba(0,0,0,0) 30%, rgba(255,255,255,.02), rgba(0,0,0,0) 60%);
-    opacity: .08; /* ajusta 0–.15 */
-  }
+      /* Neutraliza fondos de secciones que puedan tapar el fondo global */
+      .hero, .header, .masthead {
+        background-image: none !important;
+        background-color: transparent !important;
+      }
 
-  /* Neutraliza fondos de secciones que puedan tapar el fondo global */
-  .hero, .header, .masthead {
-    background-image: none !important;
-    background-color: transparent !important;
-  }
+      /* Holographic Grid: mantenemos el elemento y su animación, pero SIN las líneas cyan */
+      .holo-grid {
+        background-image:
+          linear-gradient(rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px);
+        /* resto de estilos de tu .holo-grid permanecen desde cyber-effects.css */
+      }
 
-  /* Holographic Grid: mantenemos el elemento y su animación, pero SIN las líneas cyan */
-  .holo-grid {
-    background-image:
-      linear-gradient(rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px);
-    /* resto de estilos de tu .holo-grid permanecen desde cyber-effects.css */
-  }
+      /* Circuit Board Pattern: mantenemos el efecto, pero sin color (alpha controlado) */
+      .circuit-bg {
+        background-image:
+          radial-gradient(circle at 2px 2px, rgba(0,229,255,var(--circuit-alpha)) 1px, transparent 0),
+          linear-gradient(90deg, rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%),
+          linear-gradient(rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%);
+      }
 
-  /* Circuit Board Pattern: mantenemos el efecto, pero sin color (alpha controlado) */
-  .circuit-bg {
-    background-image:
-      radial-gradient(circle at 2px 2px, rgba(0,229,255,var(--circuit-alpha)) 1px, transparent 0),
-      linear-gradient(90deg, rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%),
-      linear-gradient(rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%);
-  }
+      /* Accesibilidad y mobile suavizado */
+      @media (max-width: 768px){
+        body{ background-attachment: scroll; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                    <circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                    <path d="M16 4 L16 12 M16 20 L16 28 M28 16 L20 16 M12 16 L4 16" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Orbix
+            </a>
+            
+            <ul class="navbar-nav">
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#impacto">Impacto</a></li>
+                <li><a href="/empresa.html">Empresa</a></li>
+                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/docs/">Docs</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contacto.html" class="btn btn-primary">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  /* Accesibilidad y mobile suavizado */
-  @media (max-width: 768px){
-    body{ background-attachment: scroll; }
-  }
-</style>
+    <!-- Hero Section -->
+    <section class="hero cyber-panel" id="home">
+        <div class="container">
+            <div class="cyber-panel"></div>
+            <div class="hero-content">
+                <h1 class="cyber-text" data-typewriter="Orbix AI Systems">Orbix AI Systems</h1>
+                <p class="hero-subtitle neon-glow">Inteligencia Artificial Aplicada</p>
+                <p class="hero-description">
+                    Framework completo de IA conversacional, automatización empresarial y ciberseguridad. 
+                    Convierte tu organización en una empresa con cerebro digital.
+                </p>
+                <div class="hero-actions">
+                    <a href="#productos" class="btn btn-primary cyber-button">Explorar Productos</a>
+                    <a href="/contacto.html" class="btn btn-secondary">Contactar</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hologram floating-icon"></div>
+                <div class="matrix-rain"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="productos" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="cyber-text">Ecosistema Orbix</h2>
+                <p>Cuatro pilares tecnológicos que revolucionan la empresa moderna</p>
+            </div>
+            
+            <div class="products-grid">
+                <div class="card cyber-panel" data-counter="99">
+                    <div class="card-icon neon-glow">🧠</div>
+                    <h3>AeNKI</h3>
+                    <p>Núcleo neural con memoria persistente, APIs abiertas y voz natural</p>
+                    <span class="counter" data-counter="99">99</span><span>% Precisión</span>
+                </div>
+                
+                <div class="card cyber-panel" data-counter="24">
+                    <div class="card-icon neon-glow">🛡️</div>
+                    <h3>Sentinel</h3>
+                    <p>Ciberseguridad en tiempo real con dashboards y alertas inteligentes</p>
+                    <span class="counter" data-counter="24">24</span><span>/7 Protección</span>
+                </div>
+                
+                <div class="card cyber-panel" data-counter="1000">
+                    <div class="card-icon neon-glow">🎓</div>
+                    <h3>Tutorium</h3>
+                    <p>Educación inteligente con tutores digitales y certificación automática</p>
+                    <span class="counter" data-counter="1000">1000</span><span>+ Estudiantes</span>
+                </div>
+                
+                <div class="card cyber-panel" data-counter="365">
+                    <div class="card-icon neon-glow">🌐</div>
+                    <h3>Eternity.ai</h3>
+                    <p>Ecosistemas virtuales con avatares persistentes y metaverso</p>
+                    <span class="counter" data-counter="365">365</span><span> Días Activo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impacto" class="section data-stream">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="cyber-text">Impacto Medible</h2>
+                <p>Resultados que transforman organizaciones</p>
+            </div>
+            
+            <div class="impact-grid">
+                <div class="impact-stat cyber-panel">
+                    <span class="stat-number glitch" data-counter="99.97">99.97</span>
+                    <span class="stat-unit">% Uptime</span>
+                    <p>Disponibilidad garantizada</p>
+                </div>
+                
+                <div class="impact-stat cyber-panel">
+                    <span class="stat-number glitch" data-counter="35">35</span>
+                    <span class="stat-unit">% Reducción</span>
+                    <p>Costos operativos</p>
+                </div>
+                
+                <div class="impact-stat cyber-panel">
+                    <span class="stat-number glitch" data-counter="3">3</span>
+                    <span class="stat-unit">x Velocidad</span>
+                    <p>Despliegue más rápido</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section cyber-panel">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cyber-text" data-typewriter="¿Listo para evolucionar?">¿Listo para evolucionar?</h2>
+                <p>Únete a la revolución de la IA aplicada con Orbix AI Systems</p>
+                <div class="cta-actions">
+                    <a href="/contacto.html" class="btn btn-primary cyber-button">Comenzar Ahora</a>
+                    <a href="/pricing.html" class="btn btn-secondary">Ver Pricing</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Orbix AI Systems</h3>
+                    <p>Sistemas que piensan, actúan y evolucionan</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Productos</h4>
+                        <a href="/aenki.html">AeNKI</a>
+                        <a href="/sentinel.html">Sentinel</a>
+                        <a href="/tutorium.html">Tutorium</a>
+                        <a href="/eternity.html">Eternity.ai</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Empresa</h4>
+                        <a href="/empresa.html">Nosotros</a>
+                        <a href="/contacto.html">Contacto</a>
+                        <a href="/pricing.html">Pricing</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Recursos</h4>
+                        <a href="/docs/">Documentación</a>
+                        <a href="/blog/">Blog</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Orbix AI Systems. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/cyber-effects.js"></script>
+</body>
+</html>
