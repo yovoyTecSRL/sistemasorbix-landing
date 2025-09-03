@@ -1,72 +1,379 @@
-<!-- Preload del fondo -->
-<link rel="preload" as="image" href="/assets/bg-space-1600.webp">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbix AI Systems - Inteligencia Artificial Conversacional Avanzada</title>
+    <meta name="description" content="Transformamos la comunicación empresarial con IA conversacional, avatares realistas y automatización inteligente. Soluciones de vanguardia para el futuro digital.">
+    <link rel="canonical" href="https://sistemasorbix.com/">
+    
+    <!-- Preload del fondo -->
+    <link rel="preload" as="image" href="/assets/bg-space-1600.webp">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/cyber-effects.css">
+    <link rel="stylesheet" href="/assets/css/home.css">
+    
+    <!-- Overrides: fondo global + holo-grid/circuit off por variables -->
+    <style>
+      /* ===== Variables de fondo ===== */
+      :root{
+        /* Usa la imagen. Cambia a 'none' si quieres negro satinado */
+        --bg-img: url("/assets/bg-space-1600.webp");
+        --bg-tint: rgba(0,0,0,.45);       /* oscurece levemente para legibilidad */
+        --holo-grid-alpha: 0;             /* 0 = sin cuadritos, puedes subirlo a 0.03 si los quieres MUY sutiles */
+        --circuit-alpha: 0;               /* 0 = sin líneas cyan del circuit-bg; súbelo a 0.06 si lo quieres apenas */
+      }
 
-<!-- Overrides: fondo global + holo-grid/circuit off por variables -->
-<style>
-  /* ===== Variables de fondo ===== */
-  :root{
-    /* Usa la imagen. Cambia a 'none' si quieres negro satinado */
-    --bg-img: url("/assets/bg-space-1600.webp");
-    --bg-tint: rgba(0,0,0,.45);       /* oscurece levemente para legibilidad */
-    --holo-grid-alpha: 0;             /* 0 = sin cuadritos, puedes subirlo a 0.03 si los quieres MUY sutiles */
-    --circuit-alpha: 0;               /* 0 = sin líneas cyan del circuit-bg; súbelo a 0.06 si lo quieres apenas */
-  }
+      html, body { height: 100%; }
+      body{
+        margin: 0;
+        background: #000;                              /* fallback */
+        background-image: var(--bg-img);
+        background-size: cover;
+        background-position: center top;
+        background-attachment: fixed;                  /* si ves jitter en móvil, usa 'scroll' */
+        color: #e6f0ff;
+      }
 
-  html, body { height: 100%; }
-  body{
-    margin: 0;
-    background: #000;                              /* fallback */
-    background-image: var(--bg-img);
-    background-size: cover;
-    background-position: center top;
-    background-attachment: fixed;                  /* si ves jitter en móvil, usa 'scroll' */
-    color: #e6f0ff;
-  }
+      /* Overlay para contraste sobre la imagen */
+      body::before{
+        content: "";
+        position: fixed; inset: 0; pointer-events: none;
+        background: linear-gradient(0deg, var(--bg-tint), var(--bg-tint));
+        z-index: -1;
+      }
 
-  /* Overlay para contraste sobre la imagen */
-  body::before{
-    content: "";
-    position: fixed; inset: 0; pointer-events: none;
-    background: linear-gradient(0deg, var(--bg-tint), var(--bg-tint));
-    z-index: -1;
-  }
+      /* Opción: negro "mate satinado" con brillos sutiles (se suma encima).
+         Si NO quieres el satinado, baja la opacidad a 0 o comenta este bloque. */
+      body::after{
+        content: "";
+        position: fixed; inset: 0; pointer-events: none; z-index: -1;
+        /* halo suave superior y micro texturita */
+        background:
+          radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.06), transparent 60%),
+          conic-gradient(from 90deg at 50% 50%, rgba(255,255,255,.02), rgba(0,0,0,0) 30%, rgba(255,255,255,.02), rgba(0,0,0,0) 60%);
+        opacity: .08; /* ajusta 0–.15 */
+      }
 
-  /* Opción: negro "mate satinado" con brillos sutiles (se suma encima).
-     Si NO quieres el satinado, baja la opacidad a 0 o comenta este bloque. */
-  body::after{
-    content: "";
-    position: fixed; inset: 0; pointer-events: none; z-index: -1;
-    /* halo suave superior y micro texturita */
-    background:
-      radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,.06), transparent 60%),
-      conic-gradient(from 90deg at 50% 50%, rgba(255,255,255,.02), rgba(0,0,0,0) 30%, rgba(255,255,255,.02), rgba(0,0,0,0) 60%);
-    opacity: .08; /* ajusta 0–.15 */
-  }
+      /* Neutraliza fondos de secciones que puedan tapar el fondo global */
+      .hero, .header, .masthead {
+        background-image: none !important;
+        background-color: transparent !important;
+      }
 
-  /* Neutraliza fondos de secciones que puedan tapar el fondo global */
-  .hero, .header, .masthead {
-    background-image: none !important;
-    background-color: transparent !important;
-  }
+      /* Holographic Grid: mantenemos el elemento y su animación, pero SIN las líneas cyan */
+      .holo-grid {
+        background-image:
+          linear-gradient(rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px);
+        /* resto de estilos de tu .holo-grid permanecen desde cyber-effects.css */
+      }
 
-  /* Holographic Grid: mantenemos el elemento y su animación, pero SIN las líneas cyan */
-  .holo-grid {
-    background-image:
-      linear-gradient(rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,255,var(--holo-grid-alpha)) 1px, transparent 1px);
-    /* resto de estilos de tu .holo-grid permanecen desde cyber-effects.css */
-  }
+      /* Circuit Board Pattern: mantenemos el efecto, pero sin color (alpha controlado) */
+      .circuit-bg {
+        background-image:
+          radial-gradient(circle at 2px 2px, rgba(0,229,255,var(--circuit-alpha)) 1px, transparent 0),
+          linear-gradient(90deg, rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%),
+          linear-gradient(rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%);
+      }
 
-  /* Circuit Board Pattern: mantenemos el efecto, pero sin color (alpha controlado) */
-  .circuit-bg {
-    background-image:
-      radial-gradient(circle at 2px 2px, rgba(0,229,255,var(--circuit-alpha)) 1px, transparent 0),
-      linear-gradient(90deg, rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%),
-      linear-gradient(rgba(0,229,255,var(--circuit-alpha)) 50%, transparent 50%);
-  }
+      /* Accesibilidad y mobile suavizado */
+      @media (max-width: 768px){
+        body{ background-attachment: scroll; }
+      }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                    <circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="16" cy="16" r="3" fill="currentColor"/>
+                    <path d="M16 4 L16 12 M16 20 L16 28 M28 16 L20 16 M12 16 L4 16" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                Orbix
+            </a>
+            
+            <ul class="navbar-nav">
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#impacto">Impacto</a></li>
+                <li><a href="/empresa.html">Empresa</a></li>
+                <li><a href="/pricing.html">Pricing</a></li>
+                <li><a href="/docs/">Docs</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contacto.html" class="btn btn-primary">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  /* Accesibilidad y mobile suavizado */
-  @media (max-width: 768px){
-    body{ background-attachment: scroll; }
-  }
-</style>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="cyber-grid"></div>
+            <div class="floating-particles"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title glow-text">
+                El Futuro de la IA
+                <span class="text-gradient">Conversacional</span>
+            </h1>
+            <p class="hero-subtitle">
+                Transformamos la comunicación empresarial con inteligencia artificial avanzada, 
+                avatares realistas y automatización que revoluciona la experiencia del cliente.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">99.8%</span>
+                    <span class="stat-label">Precisión</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">&lt;200ms</span>
+                    <span class="stat-label">Latencia</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Disponibilidad</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <a href="/contacto.html" class="btn btn-primary glow-cyan">Solicitar Demo</a>
+                <a href="#productos" class="btn btn-secondary">Ver Productos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="productos" class="section">
+        <div class="section-container">
+            <h2 class="section-title text-center">Nuestros Productos</h2>
+            <p class="section-subtitle text-center">
+                Soluciones de IA conversacional diseñadas para transformar tu negocio
+            </p>
+            
+            <div class="grid grid-3">
+                <div class="product-card glass glow-cyan">
+                    <div class="product-icon">🧠</div>
+                    <h3 class="product-title">AeNKI</h3>
+                    <p class="product-subtitle">Núcleo Neural Avanzado</p>
+                    <p class="product-description">
+                        Memoria persistente, APIs abiertas y voz natural. El cerebro digital que aprende y evoluciona.
+                    </p>
+                    <ul class="product-features">
+                        <li>Memoria persistente</li>
+                        <li>Voz natural + Lip-sync</li>
+                        <li>APIs RESTful</li>
+                        <li>Respuesta en tiempo real</li>
+                    </ul>
+                    <a href="/aenki.html" class="btn btn-outline">Conocer más</a>
+                </div>
+                
+                <div class="product-card glass">
+                    <div class="product-icon">🤖</div>
+                    <h3 class="product-title">Avatares IA</h3>
+                    <p class="product-subtitle">Representación Digital Realista</p>
+                    <p class="product-description">
+                        Avatares hiperrealistas con expresiones naturales y sincronización labial perfecta.
+                    </p>
+                    <ul class="product-features">
+                        <li>Renderizado 3D realista</li>
+                        <li>Sincronización labial</li>
+                        <li>Expresiones dinámicas</li>
+                        <li>Personalización completa</li>
+                    </ul>
+                    <a href="/avatares.html" class="btn btn-outline">Conocer más</a>
+                </div>
+                
+                <div class="product-card glass">
+                    <div class="product-icon">⚡</div>
+                    <h3 class="product-title">Automatización IA</h3>
+                    <p class="product-subtitle">Workflows Inteligentes</p>
+                    <p class="product-description">
+                        Automatización empresarial con IA que aprende y optimiza procesos continuamente.
+                    </p>
+                    <ul class="product-features">
+                        <li>Workflows adaptativos</li>
+                        <li>Integración ERP/CRM</li>
+                        <li>Análisis predictivo</li>
+                        <li>ROI optimizado</li>
+                    </ul>
+                    <a href="/automatizacion.html" class="btn btn-outline">Conocer más</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impacto" class="section section-dark">
+        <div class="section-container">
+            <div class="grid grid-2 align-center">
+                <div>
+                    <h2 class="section-title">Impacto Transformador</h2>
+                    <p class="section-description">
+                        Nuestras soluciones de IA no solo automatizan procesos, sino que reimaginan 
+                        completamente la experiencia del cliente y la eficiencia operacional.
+                    </p>
+                    
+                    <div class="impact-metrics">
+                        <div class="metric">
+                            <span class="metric-value text-gradient">85%</span>
+                            <span class="metric-label">Reducción en costos operacionales</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value text-gradient">300%</span>
+                            <span class="metric-label">Aumento en satisfacción del cliente</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value text-gradient">24/7</span>
+                            <span class="metric-label">Disponibilidad sin interrupciones</span>
+                        </div>
+                    </div>
+                    
+                    <a href="/casos-exito.html" class="btn btn-primary">Ver Casos de Éxito</a>
+                </div>
+                
+                <div class="impact-visual">
+                    <div class="cyber-dashboard glass">
+                        <div class="dashboard-header">
+                            <span class="status-indicator active"></span>
+                            <span>Sistema Activo</span>
+                        </div>
+                        <div class="dashboard-metrics">
+                            <div class="metric-box">
+                                <span class="metric-title">Conversaciones</span>
+                                <span class="metric-number">15,847</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-title">Satisfacción</span>
+                                <span class="metric-number">98.2%</span>
+                            </div>
+                            <div class="metric-box">
+                                <span class="metric-title">Tiempo Respuesta</span>
+                                <span class="metric-number">0.18s</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section class="section">
+        <div class="section-container">
+            <h2 class="section-title text-center">Tecnología de Vanguardia</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card glass">
+                    <div class="tech-icon">🔬</div>
+                    <h3>Neural Networks</h3>
+                    <p>Redes neuronales profundas con arquitecturas transformer avanzadas</p>
+                </div>
+                
+                <div class="tech-card glass">
+                    <div class="tech-icon">🎭</div>
+                    <h3>Computer Vision</h3>
+                    <p>Reconocimiento facial y síntesis de expresiones en tiempo real</p>
+                </div>
+                
+                <div class="tech-card glass">
+                    <div class="tech-icon">🎵</div>
+                    <h3>Speech Synthesis</h3>
+                    <p>Síntesis de voz natural con entonación y emociones realistas</p>
+                </div>
+                
+                <div class="tech-card glass">
+                    <div class="tech-icon">⚡</div>
+                    <h3>Edge Computing</h3>
+                    <p>Procesamiento distribuido para latencia ultra-baja</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section section-cta">
+        <div class="section-container text-center">
+            <h2 class="cta-title glow-text">¿Listo para Transformar tu Negocio?</h2>
+            <p class="cta-description">
+                Únete a las empresas que ya están revolucionando su comunicación con IA conversacional
+            </p>
+            <div class="cta-buttons">
+                <a href="/contacto.html" class="btn btn-primary btn-large glow-cyan">Solicitar Demo Gratuita</a>
+                <a href="/pricing.html" class="btn btn-secondary btn-large">Ver Planes</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Orbix AI Systems</h3>
+                    <p>Revolucionando la comunicación empresarial con inteligencia artificial avanzada.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn">📧</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="GitHub">💻</a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Productos</h4>
+                    <ul>
+                        <li><a href="/aenki.html">AeNKI</a></li>
+                        <li><a href="/avatares.html">Avatares IA</a></li>
+                        <li><a href="/automatizacion.html">Automatización</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="/empresa.html">Sobre Nosotros</a></li>
+                        <li><a href="/casos-exito.html">Casos de Éxito</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/carreras.html">Carreras</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Soporte</h4>
+                    <ul>
+                        <li><a href="/docs/">Documentación</a></li>
+                        <li><a href="/soporte.html">Centro de Ayuda</a></li>
+                        <li><a href="/contacto.html">Contacto</a></li>
+                        <li><a href="/status.html">Estado del Sistema</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Orbix AI Systems. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="/privacidad.html">Privacidad</a>
+                    <a href="/terminos.html">Términos</a>
+                    <a href="/cookies.html">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cyber Effects -->
+    <div class="cyber-bg"></div>
+    
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/cyber-effects.js"></script>
+</body>
+</html>
